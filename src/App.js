@@ -15,17 +15,21 @@ const Part = (props) => {
 const Content = (props) => {
   return(
     <>
-      <Part part={props.course.parts[0].name} exercises={props.course.parts[0].exercises}/>
-      <Part part={props.course.parts[1].name} exercises={props.course.parts[1].exercises}/>
-      <Part part={props.course.parts[2].name} exercises={props.course.parts[2].exercises}/>
+      {props.course.parts.map((item,index) => {
+        return(
+          <Part key={index} part={item.name} exercises={item.exercises}/>
+        );
+      })}
     </>
   );
 }
 const Total = (props) => {
-  console.log(props);
+  const exercises = props.course.parts.reduce((sum,item) => 
+    sum += item.exercises, 0
+  )
   return(
     <p>
-      Number of exercises {props.course.parts[0].exercises + props.course.parts[0].exercises + props.course.parts[0].exercises}
+      Number of exercises {exercises}
     </p>
   );
 }
@@ -44,6 +48,10 @@ const App = () => {
         },
         {
           name: 'State of a component',
+          exercises: 14
+        },
+        {
+          name: 'Modificado',
           exercises: 14
         },
     ]
